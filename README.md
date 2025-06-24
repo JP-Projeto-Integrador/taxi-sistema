@@ -59,10 +59,10 @@ Este sistema tem como objetivo gerenciar chamadas de táxi feitas por clientes, 
 │   │   ├── Main.java
 │   │   ├── Motorista.java
 │   │   ├── Pessoa.java
-│   │   ├── Veiculo.java
-│   │   └── Validacao.java
+│   │   ├── TiposChamado.java
+│   │   ├── Validacao.java
+│   │   └── Veiculo.java
 │   ├── module-info.java
-│   │   └── TiposChamado.java
 |   └── 📁 lib
         └── mysql-connector-j-9.1.0 1.jar
 

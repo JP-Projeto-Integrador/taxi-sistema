@@ -100,7 +100,7 @@ String password = "sua_senha";
 4. **Compile e gere o `.jar`**
 ```bash
 javac -d bin src/**/*.java
-jar cfe sistema-taxi.jar com.seuprojeto.Main -C bin .
+jar cfe sistema-taxi.jar com.TaxiSistema.Main -C bin .
 ```
 
 5. **Execute o sistema**

@@ -13,8 +13,8 @@ import com.heranca.Motorista;
 public class MotoristaDAO {
 	public void inserir(Motorista motorista) throws SQLException {
 		String sql = "INSERT INTO motorista (nome, endereco, telefone, cnh) VALUES " + "(?,?,?,?)";
-		
-		try (Connection conn = ConnectionFactory.getConnection();
+
+		try (Connection conn = ConnectionFactory.getConnection(); 
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, motorista.getNome());
 			stmt.setString(2, motorista.getEndereco());
@@ -23,22 +23,32 @@ public class MotoristaDAO {
 			stmt.executeUpdate();
 		}
 	}
-	
-	public List<Motorista> selecionarTodos() throws SQLException{
+
+	public List<Motorista> selecionarTodos() throws SQLException {
 		List<Motorista> motoristas = new ArrayList<Motorista>();
 		String sql = "SELECT * FROM motorista";
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
-					while(rs.next()) {
-						Motorista motorista = new Motorista (
-								rs.getNString("nome"),
-								rs.getString("endereco"),
-								rs.getString("telefone"),
-								rs.getString("cnh"));
-						motoristas.add(motorista);
-					}
-				}
-			return motoristas;
+			while (rs.next()) {
+				Motorista motorista = new Motorista(rs.getNString("nome"), rs.getString("endereco"),
+						rs.getString("telefone"), rs.getString("cnh"));
+				motoristas.add(motorista);
+			}
+		}
+		return motoristas;
+	}
+
+	public void atualizar(Motorista motorista) throws SQLException {
+		String sql = "UPDATE motorista SET nome = ?, endereco = ?, telefone = ? WHERE cnh = ?";
+
+		try (Connection conn = ConnectionFactory.getConnection(); 
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, motorista.getNome());
+			stmt.setString(2, motorista.getEndereco());
+			stmt.setString(3, motorista.getTelefone());
+			stmt.setString(4, motorista.getCnh());
+			stmt.executeUpdate();
+		}
 	}
 }

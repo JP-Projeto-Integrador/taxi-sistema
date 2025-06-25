@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.DAO.ClienteDAO;
 import com.heranca.Cliente;
@@ -16,6 +17,18 @@ public class ClienteController {
 			System.out.println("Cliente salvo com sucesso!");
 		} catch (SQLException e) {
 			System.out.println("Erro ao salvar cliente: " + e.getMessage());
+		}
+	}
+	public void listarClientes() {
+		try {
+			List<Cliente> clientes = clienteDAO.selecionarTodos();
+			System.out.println("Clientescadastrados no banco de dados: ");
+			for (Cliente cliente : clientes) {
+				System.out.println("-----------------------------------");
+				cliente.exibirDados();
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar clientes: " + e.getMessage());
 		}
 	}
 }

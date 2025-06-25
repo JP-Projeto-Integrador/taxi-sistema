@@ -23,9 +23,9 @@ public class ClienteController {
 	public void listarClientes() {
 		try {
 			List<Cliente> clientes = clienteDAO.selecionarTodos();
-			System.out.println("Clientes cadastrados no banco: ");
+			System.out.println("Clientes cadastrados no banco de dados: ");
 			for (Cliente cliente : clientes) {
-				System.out.println("-----------------------------------");
+				System.out.println("---------------------------");
 				cliente.exibirDados();
 			}
 		} catch (Exception e) {

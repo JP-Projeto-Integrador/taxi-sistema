@@ -53,6 +53,15 @@ public class Cliente extends Pessoa {
                 ", RG ='" + rg + '\'' +
                 ", CPF ='" + cpf;
     }
+    
+    public void exibirDados() {
+    	System.out.println("Cliente:");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Telefone: " + getTelefone());
+        System.out.println("Endereço: " + getEndereco());
+        System.out.println("RG: " + rg);
+        System.out.println("CPF: " + cpf);
+    }
 	
 }
 

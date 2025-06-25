@@ -41,4 +41,14 @@ public class MotoristaController {
 			System.out.println("Erro ao atualizar motorista: " +e.getMessage());
 		}
 	}
+	
+	public void excluirMotorista(String cnh) {
+		try {
+			Motorista motorista = new Motorista("", "", "", cnh); //passa apenas o dado da cnh para excluir o motorista
+			motoristaDAO.excluir(motorista);
+			System.out.println ("Motorista excluído com sucesso!");
+		} catch (SQLException e) {
+			System.out.println("Erro ao excluir motorista: " +e.getMessage());
+		}
+	}
 }

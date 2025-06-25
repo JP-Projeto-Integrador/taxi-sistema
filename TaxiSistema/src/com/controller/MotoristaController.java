@@ -31,4 +31,14 @@ public class MotoristaController {
 			System.out.print("Erro ao buscar motoristas: " + e.getMessage());
 		}
 	}
+	
+	public void atualizarMotorista (String nome, String telefone, String endereco, String cnh) {
+		try {
+			Motorista motorista = new Motorista(nome, telefone, endereco, cnh);
+			motoristaDAO.atualizar(motorista);
+			System.out.println("Motorista atualizado com sucesso!");
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar motorista: " +e.getMessage());
+		}
+	}
 }

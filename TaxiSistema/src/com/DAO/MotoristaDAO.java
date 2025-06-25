@@ -51,4 +51,14 @@ public class MotoristaDAO {
 			stmt.executeUpdate();
 		}
 	}
+	
+	public void excluir(Motorista motorista) throws SQLException {
+		String sql = "DELETE FROM motorista WHERE cnh = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, motorista.getCnh());
+			stmt.executeUpdate();
+		}
+	}
 }

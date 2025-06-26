@@ -43,4 +43,28 @@ public class VeiculoDAO {
 				}
 		return veiculos;
 	}
+	
+	public void atualizar(Veiculo veiculo) throws SQLException {
+		String sql = "UPDATE veiculo SET placa = ?, modelo = ?, ano = ?, cor = ?, marca = ? WHERE placa = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, veiculo.getPlaca());
+			stmt.setString(2, veiculo.getModelo());
+			stmt.setInt(3, veiculo.getAno());
+			stmt.setString(4, veiculo.getCor());
+			stmt.setString(5, veiculo.getMarca());
+			stmt.executeUpdate();
+		}
+	}
+	
+	public void excluir(Veiculo veiculo) throws SQLException {
+		String sql = "DELETE FROM veiculo WHERE placa = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, veiculo.getPlaca());
+			stmt.executeUpdate();
+		}
+	}
 }

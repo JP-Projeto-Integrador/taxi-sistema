@@ -67,5 +67,14 @@ public class Veiculo {
 		return "Veiculo [placa =" + placa + ", modelo =" + modelo + ", ano =" + ano + ", cor =" + cor + ", marca ="
 				+ marca + "]";
 	}
+	
+    public void exibirDados() {
+    	System.out.println("Veículo:");
+        System.out.println("Placa: " + getPlaca());
+        System.out.println("Modelo: " + getModelo());
+        System.out.println("Ano: " + getAno());
+        System.out.println("Cor: " + getCor());
+        System.out.println("Marca: " + getMarca());
+    }
 
 }

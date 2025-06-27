@@ -7,7 +7,7 @@ import com.DAO.VeiculoDAO;
 import com.heranca.Veiculo;
 
 public class VeiculoController {
-	private VeiculoDAO veiculoDAO = VeiculoDAO();
+	private VeiculoDAO veiculoDAO = new VeiculoDAO();
 	
 	public void salvarVeiculo(String placa, String modelo, int ano, String cor, String marca) {
 		try {
@@ -29,6 +29,26 @@ public class VeiculoController {
 			}
 		} catch (Exception e) {
 			System.out.println("Erro ao buscar veículos: " + e.getMessage());
+		}
+	}
+	
+	public void atualizarVeiculo(String placa, String modelo, int ano, String cor, String marca) {
+		try {
+			Veiculo veiculo = new Veiculo(placa, modelo, ano, cor, marca);
+			veiculoDAO.atualizar(veiculo);
+			System.out.println("Veículo atualizado com sucesso!");
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar veículo: " + e.getMessage());
+		}
+	}
+	
+	public void excluirVeiculo(String placa) {
+		try {
+			Veiculo veiculo = new Veiculo(placa, "", 0, "", "");
+			veiculoDAO.excluir(veiculo);
+			System.out.println("Veículo excluído com sucesso!");
+		} catch (SQLException e) {
+			System.out.println("Erro ao excluir veículo: " + e.getMessage());
 		}
 	}
 }

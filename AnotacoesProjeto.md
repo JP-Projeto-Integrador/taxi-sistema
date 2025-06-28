@@ -2,7 +2,151 @@
 ---
 &nbsp;
 &nbsp;
-## 1️⃣ Comparando as estruturas do método `selecionarTodos()` das classes `ClienteDAO` e `ChamadoDAO`
+
+## 1️⃣ Arquitetura do Projeto
+### 👩🏽‍💻 Por Albie & ChatGPT
+---
+## 📌 Lógica por trás da estrutura com Model(heranca), DAO, Controller e View
+
+O projeto taxi-sistema utiliza um padrão de arquitetura que se chama **MVC**.
+
+## ✅ O que é **MVC**?
+
+**MVC** é uma sigla para:
+
+> **Model – View – Controller**
+
+É um **padrão de arquitetura de software** usado para organizar o código em **três partes bem separadas**, facilitando a manutenção, o entendimento e o trabalho em equipe.
+
+## 🧱 Estrutura básica: MVC + DAO
+
+| Camada         | Função principal                    | Exemplo no seu projeto de táxi       |
+| -------------- | ----------------------------------- | ------------------------------------ |
+| **Model(heranca)**      | Representa os dados da aplicação    | `Cliente.java`, `Chamado.java`       |
+| **DAO**        | Acesso ao banco de dados            | `ClienteDAO.java`, `ChamadoDAO.java` |
+| **Controller** | Lógica de controle entre View e DAO | `ClienteController.java`             |
+| **View**       | Interface com o usuário             | Tela com formulário ou menu texto    |
+
+---
+
+## 🔄 Fluxo da lógica (passo a passo)
+
+Vamos usar o exemplo de **cadastrar um cliente** no sistema de táxi:
+
+### 1. **Usuário preenche o formulário**
+
+Na `View`, a pessoa digita nome, CPF, telefone, etc.
+
+```java
+// View (exemplo)
+Scanner sc = new Scanner(System.in);
+System.out.print("Nome: ");
+String nome = sc.nextLine();
+// ...
+```
+
+---
+
+### 2. **View envia os dados para o Controller**
+
+A View chama o Controller e passa os dados.
+
+```java
+ClienteController controller = new ClienteController();
+controller.cadastrarCliente(nome, endereco, telefone, cpf, rg);
+```
+
+---
+
+### 3. **Controller monta o objeto Model e chama o DAO**
+
+O Controller cria um `Cliente` (Model) e envia para o DAO.
+
+```java
+public void cadastrarCliente(String nome, String endereco, String telefone, String cpf, String rg) {
+    Cliente cliente = new Cliente(nome, endereco, telefone, cpf, rg);
+    clienteDAO.inserir(cliente); // chama o DAO
+}
+```
+
+---
+
+### 4. **DAO grava no banco de dados**
+
+O DAO cuida da conexão com o banco.
+
+```java
+public void inserir(Cliente cliente) throws SQLException {
+    String sql = "INSERT INTO cliente (nome, endereco, telefone, cpf, rg) VALUES (?, ?, ?, ?, ?)";
+    PreparedStatement stmt = conn.prepareStatement(sql);
+    stmt.setString(1, cliente.getNome());
+    // ...
+    stmt.executeUpdate();
+}
+```
+
+---
+
+### 5. **Pronto!**
+
+Cliente cadastrado com sucesso.
+
+---
+
+## 📦 Funções de cada camada resumidas:
+
+### 🧩 **Model**: estrutura de dados
+
+```java
+public class Cliente {
+    private String nome;
+    private String cpf;
+    // getters e setters
+}
+```
+
+### 🛠 **DAO**: comunicação com o banco
+
+```java
+public class ClienteDAO {
+    public void inserir(Cliente cliente) { ... }
+    public List<Cliente> selecionarTodos() { ... }
+}
+```
+
+### 🎮 **Controller**: ponte entre View e DAO
+
+```java
+public class ClienteController {
+    public void cadastrarCliente(...) { ... }
+    public List<Cliente> listarClientes() { ... }
+}
+```
+
+### 🎨 **View**: interação com o usuário
+
+Pode ser:
+
+* Console (usando `Scanner`)
+* Swing / JavaFX (interface gráfica)
+* Web (JSP, HTML, etc.)
+
+---
+
+## 🧠 Dica Visual: Diagrama simplificado
+
+```
+[ View ]
+   ↓
+[ Controller ]
+   ↓
+[ Model ] → [ DAO ] → [ Banco de Dados ]
+```
+
+---
+---
+
+## 2️⃣Comparando as estruturas do método `selecionarTodos()` das classes `ClienteDAO` e `ChamadoDAO`
 ### 👩🏽‍💻 Por Albie & ChatGPT
 
 ## ✅ Estrutura 1 — **`ClienteDAO` simples**

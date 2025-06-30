@@ -38,7 +38,36 @@ public class Chamado {
         this.veiculo = veiculo;
     }
 
-  
+
+    public void exibirDados() {
+    	System.out.println("Chamado:");
+        System.out.println("Origem: " + getOrigem());
+        System.out.println("Destino: " + getDestino());
+        System.out.println("Tipo de Chamado: " + getTipoChamado());
+        System.out.println("Kilometragem Inicial: " + getKmInicial());
+        System.out.println("Kilometragem Final: " + getKmFinal());
+        System.out.println("Hora Inicial: " + getHoraInicial());
+        System.out.println("Hora Final: " + getHoraFinal());
+        System.out.println("Valor Total: " + getValorTotal());
+    	System.out.println("\nChamado - Dados do Cliente:");
+        System.out.println("Nome: " + cliente.getNome());
+        System.out.println("Telefone: " + cliente.getTelefone());
+        System.out.println("Endereço: " + cliente.getEndereco());
+        System.out.println("RG: " + cliente.getRg());
+        System.out.println("CPF: " + cliente.getCpf());
+    	System.out.println("\nChamado - Dados do Motorista:");
+        System.out.println("Nome: " + motorista.getNome());
+        System.out.println("Telefone: " + motorista.getTelefone());
+        System.out.println("Endereço: " + motorista.getEndereco());
+        System.out.println("CNH: " + motorista.getCnh());
+    	System.out.println("\nChamado - Dados do Veículo:");
+        System.out.println("Placa: " + veiculo.getPlaca());
+        System.out.println("Modelo: " + veiculo.getModelo());
+        System.out.println("Ano: " + veiculo.getAno());
+        System.out.println("Cor: " + veiculo.getCor());
+        System.out.println("Marca: " + veiculo.getMarca());
+    }
+    
     public String getOrigem() {
         return origem;
     }

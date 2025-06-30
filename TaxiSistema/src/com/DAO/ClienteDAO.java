@@ -52,4 +52,14 @@ public class ClienteDAO {
 			stmt.executeUpdate();
 		}
 	}
+	
+	public void excluir(Cliente cliente) throws SQLException {
+		String sql = "DELETE FROM cliente WHERE cpf = ?";
+		
+		try (Connection conn = ConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, cliente.getCpf());
+			stmt.executeUpdate();
+		}
+	}
 }

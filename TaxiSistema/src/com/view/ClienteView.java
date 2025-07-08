@@ -1,8 +1,10 @@
 package com.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.controller.ClienteController;
+import com.heranca.Cliente;
 
 public class ClienteView {
     private ClienteController controller = new ClienteController();
@@ -29,4 +31,10 @@ public class ClienteView {
         sc.close();
         controller.salvarCliente(nome, telefone, endereco, rg, cpf);
     }
+    
+    public void listarClientes() {
+    	List<Cliente> clientes = ClienteController.listarClientes();
+    	
+    	
+    	}
 }

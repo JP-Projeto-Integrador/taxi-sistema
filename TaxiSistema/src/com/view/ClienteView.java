@@ -1,17 +1,15 @@
 package com.view;
 
-import java.util.List;
 import java.util.Scanner;
 
 import com.controller.ClienteController;
-import com.heranca.Cliente;
+
 
 public class ClienteView {
     private ClienteController controller = new ClienteController();
+    private Scanner sc = new Scanner(System.in); 
 
     public void cadastrarCliente() {
-        Scanner sc = new Scanner(System.in);
-
         System.out.print("Nome: ");
         String nome = sc.nextLine();
 
@@ -26,15 +24,42 @@ public class ClienteView {
         
         System.out.print("CPF: ");
         String cpf = sc.nextLine();
-      
 
-        sc.close();
         controller.salvarCliente(nome, telefone, endereco, rg, cpf);
     }
-    
+
     public void listarClientes() {
-    	List<Cliente> clientes = ClienteController.listarClientes();
-    	
-    	
-    	}
+        try {
+            controller.listarClientes();
+        } catch (Exception e) {
+        	System.out.println("Erro ao listar clientes: " + e.getMessage());
+            } 
+    }
+    
+    public void atualizarCliente() {
+        System.out.println("Digite os dados do cliente para atualizar:");
+        System.out.print("CPF do cliente a atualizar: ");
+        String cpf = sc.nextLine();
+
+        System.out.print("Novo nome: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Novo endereço: ");
+        String endereco = sc.nextLine();
+
+        System.out.print("Novo telefone: ");
+        String telefone = sc.nextLine();
+
+        System.out.print("Novo RG: ");
+        String rg = sc.nextLine();
+
+        controller.atualizarCliente(nome, endereco, telefone, cpf, rg);
+    }
+    
+    public void excluirCliente() {
+        System.out.print("Digite o CPF do cliente a excluir: ");
+        String cpf = sc.nextLine();
+
+        controller.excluirCliente(cpf);
+    }
 }

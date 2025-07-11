@@ -10,7 +10,7 @@ import com.heranca.Cliente;
 public class ClienteController {
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	
-	public void salvarCliente(String nome, String endereco, String telefone, String cpf, String rg) {
+	public void salvarCliente(String nome, String telefone, String endereco, String cpf, String rg) {
 		try {
 			Cliente cliente = new Cliente(nome, endereco, telefone, cpf, rg);
 			clienteDAO.inserir(cliente);
@@ -33,7 +33,7 @@ public class ClienteController {
 		}
 	}
 	
-	public void atualizarCliente(String nome, String endereco, String telefone, String cpf, String rg) {
+	public void atualizarCliente(String nome, String telefone, String endereco, String cpf, String rg) {
 	    try {
 	        Cliente cliente = new Cliente(nome, endereco, telefone, cpf, rg);
 	        cliente.setCpf(cpf);

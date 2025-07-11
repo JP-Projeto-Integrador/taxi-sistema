@@ -41,7 +41,7 @@ public class ClienteDAO {
 	}
 
 	public void atualizar(Cliente cliente) throws SQLException {
-		String sql = "UPDATE cliente SET nome = ?, telefone = ?, endereco = ?, rg = ?, WHERE cpf = ?";
+		String sql = "UPDATE cliente SET nome = ?, endereco = ?, telefone = ?, rg = ?, WHERE cpf = ?";
 
 		try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, cliente.getNome());

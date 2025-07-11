@@ -17,8 +17,8 @@ public class MotoristaDAO {
 		try (Connection conn = ConnectionFactory.getConnection(); 
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, motorista.getNome());
-			stmt.setString(2, motorista.getEndereco());
-			stmt.setString(3, motorista.getTelefone());
+			stmt.setString(3, motorista.getEndereco());
+			stmt.setString(2, motorista.getTelefone());
 			stmt.setString(4, motorista.getCnh());
 			stmt.executeUpdate();
 		}

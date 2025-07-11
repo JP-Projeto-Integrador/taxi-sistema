@@ -12,12 +12,12 @@ public class ClienteView {
     public void cadastrarCliente() {
         System.out.print("Nome: ");
         String nome = sc.nextLine();
+        
+        System.out.print("Endereço: ");
+        String endereco = sc.nextLine();
 
         System.out.print("Telefone: ");
         String telefone = sc.nextLine();
-
-        System.out.print("Endereço: ");
-        String endereco = sc.nextLine();
         
         System.out.print("RG: ");
         String rg = sc.nextLine();
@@ -25,7 +25,7 @@ public class ClienteView {
         System.out.print("CPF: ");
         String cpf = sc.nextLine();
 
-        controller.salvarCliente(nome, telefone, endereco, rg, cpf);
+        controller.salvarCliente(nome, endereco, telefone, rg, cpf);
     }
 
     public void listarClientes() {

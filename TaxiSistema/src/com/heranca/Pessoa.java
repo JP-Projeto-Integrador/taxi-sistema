@@ -2,8 +2,9 @@ package com.heranca;
 
 public class Pessoa {
 	private String nome;
-	private String telefone;
 	private String endereco;
+	private String telefone;
+
 	
 	public String getNome() {
 		return nome;
@@ -29,7 +30,7 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
-	public Pessoa(String nome, String telefone, String endereco) {
+	public Pessoa(String nome, String endereco, String telefone) {
 		
 		if (!Validacao.validarTelefone(telefone)) {
 
@@ -38,10 +39,11 @@ public class Pessoa {
 		}
 
 		this.nome = nome;
+		
+		this.endereco = endereco;
 
 		this.telefone = telefone;
 
-		this.endereco = endereco;
 
 	}
 	

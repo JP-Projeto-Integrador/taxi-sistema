@@ -9,9 +9,9 @@ import com.heranca.Motorista;
 public class MotoristaController {
 	private MotoristaDAO motoristaDAO = new MotoristaDAO();
 	
-	public void salvarMotorista (String nome, String telefone, String endereco, String cnh) {
+	public void salvarMotorista (String nome, String endereco, String telefone, String cnh) {
 		try {
-			Motorista motorista = new Motorista (nome, telefone, endereco, cnh);
+			Motorista motorista = new Motorista (nome, endereco, telefone, cnh);
 			motoristaDAO.inserir(motorista);
 			System.out.println("Motorista cadastrado com sucesso!");
 		} catch (SQLException e) {
@@ -32,9 +32,9 @@ public class MotoristaController {
 		}
 	}
 	
-	public void atualizarMotorista (String nome, String telefone, String endereco, String cnh) {
+	public void atualizarMotorista (String nome, String endereco, String telefone, String cnh) {
 		try {
-			Motorista motorista = new Motorista(nome, telefone, endereco, cnh);
+			Motorista motorista = new Motorista(nome, endereco, telefone, cnh);
 			motoristaDAO.atualizar(motorista);
 			System.out.println("Motorista atualizado com sucesso!");
 		} catch (SQLException e) {

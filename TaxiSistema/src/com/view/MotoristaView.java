@@ -5,9 +5,8 @@ import java.util.Scanner;
 import com.controller.MotoristaController;
 
 
-public class MorotistaView {
+public class MotoristaView {
 
-	public class MotoristaView {
 
 		private MotoristaController controller = new MotoristaController();
 		Scanner sc = new Scanner(System.in);
@@ -16,19 +15,20 @@ public class MorotistaView {
 
 			System.out.println("Nome: ");
 			String nome = sc.nextLine();
+			
+			System.out.println("Endereço: ");
+			String endereco = sc.nextLine();
 
 			System.out.println("Telefone: ");
 			String telefone = sc.nextLine();
 
-			System.out.println("Endereço: ");
-			String endereco = sc.nextLine();
 			
 			System.out.print("CNH: ");
 		    String cnh = sc.nextLine();
 
 			sc.close();
 
-			controller.salvarMotorista(nome, telefone, endereco, cnh);
+			controller.salvarMotorista(nome, endereco, telefone, cnh);
 
 		}
 
@@ -48,14 +48,14 @@ public class MorotistaView {
 
 	        System.out.print("Novo nome: ");
 	        String nome = sc.nextLine();
+	        
+	        System.out.print("Novo endereço: ");
+	        String endereco = sc.nextLine();
 
 	        System.out.print("Novo telefone: ");
 	        String telefone = sc.nextLine();
 
-	        System.out.print("Novo endereço: ");
-	        String endereco = sc.nextLine();
-
-	        controller.atualizarMotorista(nome, telefone, endereco, cnh);
+	        controller.atualizarMotorista(nome, endereco, telefone, cnh);
 	    }
 		
 		public void excluirMotorista() {
@@ -68,4 +68,4 @@ public class MorotistaView {
 		
 	}
 
-}
+

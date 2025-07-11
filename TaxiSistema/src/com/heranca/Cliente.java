@@ -4,8 +4,8 @@ public class Cliente extends Pessoa {
 	private String rg;
 	private String cpf;
 	
-	public Cliente (String nome, String telefone, String endereco, String rg, String cpf) {
-		super(nome, telefone, endereco);
+	public Cliente (String nome, String endereco, String telefone,  String rg, String cpf) {
+		super(nome, endereco, telefone);
 		
 		if (!Validacao.validarRG(rg)) {
 
@@ -48,8 +48,8 @@ public class Cliente extends Pessoa {
     public String toString() {
         return "Cliente |" +
                 "Nome ='" + getNome() + '\'' +
-                ", Telefone ='" + getTelefone() + '\'' +
                 ", Endereco ='" + getEndereco() + '\'' +
+                ", Telefone ='" + getTelefone() + '\'' +
                 ", RG ='" + rg + '\'' +
                 ", CPF ='" + cpf;
     }
@@ -57,8 +57,8 @@ public class Cliente extends Pessoa {
     public void exibirDados() {
     	System.out.println("Cliente:");
         System.out.println("Nome: " + getNome());
-        System.out.println("Telefone: " + getTelefone());
         System.out.println("Endereço: " + getEndereco());
+        System.out.println("Telefone: " + getTelefone());
         System.out.println("RG: " + rg);
         System.out.println("CPF: " + cpf);
     }

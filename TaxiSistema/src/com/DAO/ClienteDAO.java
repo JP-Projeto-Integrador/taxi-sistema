@@ -26,18 +26,26 @@ public class ClienteDAO {
 	}
 
 	public List<Cliente> selecionarTodos() throws SQLException {
-		List<Cliente> clientes = new ArrayList<>();
-		String sql = "SELECT * FROM cliente";
-		try (Connection conn = ConnectionFactory.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(sql);
-				ResultSet rs = stmt.executeQuery()) {
-			while (rs.next()) {
-				Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("endereco"), rs.getString("telefone"),
-						rs.getString("cpf"), rs.getString("rg"));
-				clientes.add(cliente);
-			}
-		}
-		return clientes;
+	    List<Cliente> clientes = new ArrayList<>();
+	    String sql = "SELECT IDCLIENTE, NOME, ENDERECO, TELEFONE, CPF, RG FROM CLIENTE";
+
+	    try (Connection conn = ConnectionFactory.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Cliente cliente = new Cliente(
+	                rs.getInt("IDCLIENTE"),     // pegar o id do banco
+	                rs.getString("NOME"),
+	                rs.getString("ENDERECO"),
+	                rs.getString("TELEFONE"),
+	                rs.getString("CPF"),
+	                rs.getString("RG")
+	            );
+	            clientes.add(cliente);
+	        }
+	    }
+	    return clientes;
 	}
 
 	public void atualizar(Cliente cliente) throws SQLException {
@@ -61,5 +69,28 @@ public class ClienteDAO {
 			stmt.setString(1, cpf);
 			stmt.executeUpdate();
 		}
+	}
+	
+	public Cliente buscarPorId(int idCliente) throws SQLException {
+	    String sql = "SELECT * FROM CLIENTE WHERE IDCLIENTE = ?";
+	    try (Connection conn = ConnectionFactory.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, idCliente);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                // cria um cliente com id
+	                Cliente cliente = new Cliente(
+	                    rs.getInt("IDCLIENTE"),
+	                    rs.getString("NOME"),
+	                    rs.getString("ENDERECO"),
+	                    rs.getString("TELEFONE"),
+	                    rs.getString("CPF"),
+	                    rs.getString("RG")
+	                );
+	                return cliente;
+	            }
+	        }
+	    }
+	    return null; // não encontrado
 	}
 }

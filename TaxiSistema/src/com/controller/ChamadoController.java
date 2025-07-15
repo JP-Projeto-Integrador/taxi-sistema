@@ -13,9 +13,6 @@ import com.heranca.Veiculo;
 
 public class ChamadoController {
 	private ChamadoDAO chamadoDAO = new ChamadoDAO();
-	//private Cliente cliente;
-	//private Motorista motorista;
-	//private Veiculo veiculo;
 
 	public void salvarChamado(String origem, String destino, TipoChamado tipoChamado, double kmInicial, double kmFinal, Timestamp horaInicial, Timestamp horaFinal,
 			double valorTotal, Cliente cliente, Motorista motorista, Veiculo veiculo) {
@@ -49,11 +46,9 @@ public class ChamadoController {
 	}
 
 
-	public void encerrarChamado(int chamadoId) {
-	    try {
-	        Chamado chamado = new Chamado(null, null, null, chamadoId, chamadoId, null, null, chamadoId, null, null, null); // cria o objeto chamado
-	        chamado.getChamadoId();            
-	        chamadoDAO.encerrarChamado(chamadoId);    
+	public void encerrarChamado(int IdChamado) {
+	    try {            
+	        chamadoDAO.encerrarChamado(IdChamado);    
 	        System.out.println("Chamado encerrado com sucesso!");
 	    } catch (SQLException e) {
 	        System.out.println("Erro ao encerrar chamado: " + e.getMessage());

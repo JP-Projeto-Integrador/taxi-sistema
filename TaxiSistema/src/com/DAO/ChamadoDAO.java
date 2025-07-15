@@ -17,8 +17,8 @@ import com.heranca.Veiculo;
 
 public class ChamadoDAO {
 	public void inserir(Chamado chamado) throws SQLException {
-		String sql = "INSERT INTO chamado (origem, destino, tipo, km_inicial, km_final, hora_inicial, hora_final, valor_total) VALUES "
-				+ "(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO chamado (origem, destino, tipo, km_inicial, km_final, hora_inicial, hora_final, valor_total, idcliente, idmotorista, idveiculo) VALUES "
+				+ "(?,?,?,?,?,?,?,?,?,?,?)";
 
 		try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, chamado.getOrigem());
@@ -29,47 +29,57 @@ public class ChamadoDAO {
 			stmt.setTimestamp(6, chamado.getHoraInicial());
 			stmt.setTimestamp(7, chamado.getHoraFinal());
 			stmt.setDouble(8, chamado.getValorTotal());
+			// chamando os dados das classes (chaves estrangeiras)
+			stmt.setInt(9, chamado.getCliente().getIdCliente());
+			stmt.setInt(10, chamado.getMotorista().getIdMotorista());
+			stmt.setInt(11, chamado.getVeiculo().getIdVeiculo());
 			stmt.executeUpdate();
 		}
 	}
 
 	public List<Chamado> selecionarTodos() throws SQLException {
 		List<Chamado> chamados = new ArrayList<>();
-		String sql = "SELECT ch.ORIGEM, ch.DESTINO, ch.TIPO, ch.KM_INICIAL, ch.KM_FINAL, "
-				+ "ch.HORA_INICIAL, ch.HORA_FINAL, ch.VALOR_TOTAL, "
-				+ "c.NOME AS cliente_nome, c.ENDERECO AS cliente_endereco, c.TELEFONE AS cliente_telefone, "
-				+ "c.CPF AS cliente_cpf, c.RG AS cliente_rg, "
-				+ "m.NOME AS motorista_nome, m.ENDERECO AS motorista_endereco, m.TELEFONE AS motorista_telefone, "
-				+ "m.CNH AS motorista_cnh, "
-				+ "v.PLACA AS veiculo_placa, v.MODELO AS veiculo_modelo, v.ANO AS veiculo_ano, "
-				+ "v.COR AS veiculo_cor, v.MARCA AS veiculo_marca " + "FROM CHAMADO ch "
-				+ "JOIN CLIENTE c ON ch.IDCLIENTE = c.IDCLIENTE "
-				+ "JOIN MOTORISTA m ON ch.IDMOTORISTA = m.IDMOTORISTA "
+		String sql = "SELECT ch.IDCHAMADO, ch.ORIGEM, ch.DESTINO, ch.TIPO, ch.KM_INICIAL, ch.KM_FINAL,\r\n"
+				+ "       ch.HORA_INICIAL, ch.HORA_FINAL, ch.VALOR_TOTAL,\r\n"
+				+ "       c.IDCLIENTE AS cliente_id, c.NOME AS cliente_nome, c.ENDERECO AS cliente_endereco, c.TELEFONE AS cliente_telefone,\r\n"
+				+ "       c.CPF AS cliente_cpf, c.RG AS cliente_rg,\r\n"
+				+ "       m.IDMOTORISTA AS motorista_id, m.NOME AS motorista_nome, m.ENDERECO AS motorista_endereco, m.TELEFONE AS motorista_telefone,\r\n"
+				+ "       m.CNH AS motorista_cnh,\r\n"
+				+ "       v.IDVEICULO AS veiculo_id, v.PLACA AS veiculo_placa, v.MODELO AS veiculo_modelo, v.ANO AS veiculo_ano,\r\n"
+				+ "       v.COR AS veiculo_cor, v.MARCA AS veiculo_marca\r\n" + "FROM CHAMADO ch\r\n"
+				+ "JOIN CLIENTE c ON ch.IDCLIENTE = c.IDCLIENTE\r\n"
+				+ "JOIN MOTORISTA m ON ch.IDMOTORISTA = m.IDMOTORISTA\r\n"
 				+ "JOIN VEICULO v ON ch.IDVEICULO = v.IDVEICULO";
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
+
 			while (rs.next()) {
-				String origem = rs.getString("origem");
-				String destino = rs.getString("destino");
-				TipoChamado tipoChamado = TipoChamado.valueOf(rs.getString("tipoChamado"));
-				double kmInicial = rs.getDouble("kmInicial");
-				double kmFinal = rs.getDouble("kmFinal");
-				Timestamp horaInicial = rs.getTimestamp("horaInicial");
-				Timestamp horaFinal = rs.getTimestamp("horaFinal");
-				double valorTotal = rs.getDouble("valorTotal");
+				int IdChamado = rs.getInt("IDCHAMADO");
+				String origem = rs.getString("ORIGEM");
+				String destino = rs.getString("DESTINO");
+				TipoChamado tipoChamado = TipoChamado.valueOf(rs.getString("TIPO"));
+				double kmInicial = rs.getDouble("KM_INICIAL");
+				double kmFinal = rs.getDouble("KM_FINAL");
+				Timestamp horaInicial = rs.getTimestamp("HORA_INICIAL");
+				Timestamp horaFinal = rs.getTimestamp("HORA_FINAL");
+				double valorTotal = rs.getDouble("VALOR_TOTAL");
 
-				Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("endereco"), rs.getString("telefone"),
-						rs.getString("cpf"), rs.getString("rg"));
+				Cliente cliente = new Cliente(rs.getInt("cliente_id"), rs.getString("cliente_nome"),
+						rs.getString("cliente_endereco"), rs.getString("cliente_telefone"), rs.getString("cliente_cpf"),
+						rs.getString("cliente_rg"));
 
-				Motorista motorista = new Motorista(rs.getString("nome"), rs.getString("telefone"),
-						rs.getString("endereco"), rs.getString("cnh"));
+				Motorista motorista = new Motorista(rs.getInt("motorista_id"), rs.getString("motorista_nome"),
+						rs.getString("motorista_endereco"), rs.getString("motorista_telefone"),
+						rs.getString("motorista_cnh"));
 
-				Veiculo veiculo = new Veiculo(rs.getString("placa"), rs.getString("modelo"), rs.getInt("ano"),
-						rs.getString("cor"), rs.getString("marca"));
+				Veiculo veiculo = new Veiculo(rs.getInt("veiculo_id"), rs.getString("veiculo_placa"),
+						rs.getString("veiculo_modelo"), rs.getInt("veiculo_ano"), rs.getString("veiculo_cor"),
+						rs.getString("veiculo_marca"), rs.getInt("veiculo_idmotorista"));
 
-				Chamado chamado = new Chamado(origem, destino, tipoChamado, kmInicial, kmFinal, horaInicial, horaFinal,
-						valorTotal, cliente, motorista, veiculo);
+				Chamado chamado = new Chamado(IdChamado, origem, destino, tipoChamado, kmInicial, kmFinal, horaInicial,
+						horaFinal, valorTotal, cliente, motorista, veiculo);
+
 				chamados.add(chamado);
 			}
 		}

@@ -25,43 +25,81 @@ public class ChamadoView {
 	
 
 	public void cadastrarChamado() {
-        System.out.print("Origem: ");
-        String origem = sc.nextLine();
+		
+		clienteController.listarClientes();
+		
+		System.out.print("Digite o ID do cliente: ");
+		int idCliente = sc.nextInt();
+		sc.nextLine();
 
-        System.out.print("Destino: ");
-        String destino = sc.nextLine();
+		Cliente cliente = clienteController.buscarPorId(idCliente);
+		if (cliente == null) {
+		    System.out.println("Cliente não encontrado!");
+		    return;
+		}
+		
+		motoristaController.listarMotoristas();
+		System.out.print("Digite o ID do motorista: ");
+		int idMotorista = sc.nextInt();
+		sc.nextLine();
 
-        System.out.print("Tipo de chamado (BASIC, COMFORT, PRIORITY): ");
-        String tipoChamado = sc.nextLine();
-        TipoChamado tipoChamadoN = null;
+		Motorista motorista = motoristaController.buscarPorId(idMotorista);
+		if (motorista == null) {
+		    System.out.println("Motorista não encontrado!");
+		    return;
+		}
 
-        try {
-            tipoChamadoN = TipoChamado.valueOf(tipoChamado.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Tipo de chamado inválido. Usando BASIC como padrão.");
-            tipoChamadoN = TipoChamado.BASIC;
-        }
-        
+	 // Primeiro listar todos os veículos
+		List<Veiculo> veiculos = veiculoController.obterVeiculos(idMotorista);
+		for (Veiculo v : veiculos) {
+		    v.exibirDados();
+		}
 
-        double kmInicial = 0.0;
+	    // Pedir para o usuário escolher pelo ID
+	    System.out.print("Digite o ID do veículo: ");
+	    int idVeiculo = sc.nextInt();
+	    sc.nextLine();
 
-        System.out.print("Km Final: ");
-        double kmFinal = sc.nextDouble();
-        
-        Timestamp horaInicial = new Timestamp(System.currentTimeMillis());
-    	Timestamp horaFinal = null;
-    	double valorTotal = 0;
-    	
-    	// ATENÇÃO: cliente, motorista e veiculo devem estar inicializados antes
-        if (cliente == null || motorista == null || veiculo == null) {
-            System.out.println("Cliente, motorista ou veículo não estão definidos. Não é possível cadastrar chamado.");
-            return;
-        }
+	    // Buscar o veículo selecionado
+	    Veiculo veiculo = veiculoController.buscarPorId(idVeiculo);
+	    if (veiculo == null) {
+	        System.out.println("Veículo não encontrado!");
+	        return;
+	    }
+	    System.out.println("Veículo selecionado: " + veiculo.getPlaca() + " (" + veiculo.getModelo() + ")");
 
-        // método p chamar ValorTotal
+	    System.out.print("Origem: ");
+	    String origem = sc.nextLine();
 
-        controller.salvarChamado(origem, destino, tipoChamadoN, kmInicial, kmFinal, horaInicial, horaFinal, valorTotal, cliente, motorista, veiculo );
-    }
+	    System.out.print("Destino: ");
+	    String destino = sc.nextLine();
+
+	    System.out.print("Tipo de chamado (BASIC, COMFORT, PRIORITY): ");
+	    String tipoChamado = sc.nextLine();
+	    TipoChamado tipoChamadoN = null;
+
+	    try {
+	        tipoChamadoN = TipoChamado.valueOf(tipoChamado.toUpperCase());
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("Tipo de chamado inválido. Usando BASIC como padrão.");
+	        tipoChamadoN = TipoChamado.BASIC;
+	    }
+
+	    double kmInicial = 0.0;
+
+	    System.out.print("Km Final: ");
+	    double kmFinal = sc.nextDouble();
+	    sc.nextLine(); // consumir quebra de linha
+
+	    Timestamp horaInicial = new Timestamp(System.currentTimeMillis());
+	    Timestamp horaFinal = null;
+	    double valorTotal = 0;
+	    
+	    controller.salvarChamado(origem, destino, tipoChamadoN,
+	        kmInicial, kmFinal, horaInicial, horaFinal,
+	        valorTotal, cliente, motorista, veiculo
+	    );
+	}
 
 	public void listarChamados() {
         try {
@@ -117,24 +155,29 @@ public class ChamadoView {
 	}
 
 
-	private Veiculo selecionarVeiculo() {
+	private Veiculo selecionarVeiculo(int idMotorista) {
 	    System.out.println("Selecione um veículo:");
-	    List<Veiculo> veiculos = veiculoController.obterVeiculos(); // Deve retornar List<Veiculo>
-	    for (Veiculo v : veiculos) {
-	        System.out.println("Placa: " + v.getPlaca() + " - Modelo: " + v.getModelo());
-	    }
-	    System.out.print("Digite a placa do veículo: ");
-	    String placa = sc.nextLine();
 
+	    // chama o controller passando o idMotorista que já deve estar definido
+	    List<Veiculo> veiculos = veiculoController.obterVeiculos(idMotorista);
+
+	    // lista todos os veículos encontrados
 	    for (Veiculo v : veiculos) {
-	        if (v.getPlaca().equalsIgnoreCase(placa)) {
+	        System.out.println("ID: " + v.getIdVeiculo() + " - Placa: " + v.getPlaca() + " - Modelo: " + v.getModelo());
+	    }
+
+	    System.out.print("Digite o ID do veículo: ");
+	    int idEscolhido = sc.nextInt();
+	    sc.nextLine(); // consumir a quebra de linha
+
+	    // procura o veículo com o ID escolhido
+	    for (Veiculo v : veiculos) {
+	        if (v.getIdVeiculo() == idEscolhido) {
 	            return v;
 	        }
 	    }
 
-	    System.out.println("Veículo não encontrado.");
+	    System.out.println("Veículo não encontrado!");
 	    return null;
 	}
-
-
 }

@@ -1,6 +1,12 @@
 package com.heranca;
 
 public class Validacao {
+	
+	public static boolean campoNaoVazio(String valor) {
+        if (valor == null) return false;
+        return !valor.trim().isEmpty();
+    }
+	
 	public static boolean validarCPF (String cpf) {
 
 		if (cpf == null) return false; 

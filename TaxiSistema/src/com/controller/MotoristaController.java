@@ -21,9 +21,6 @@ public class MotoristaController {
 	    }
 	}
 
-	
-
-
 	public void salvarMotorista (String nome, String endereco, String telefone, String cnh) {
 		try {
 			Motorista motorista = new Motorista (nome, endereco, telefone, cnh);
@@ -64,5 +61,14 @@ public class MotoristaController {
 		} catch (SQLException e) {
 			System.out.println("Erro ao excluir motorista: " +e.getMessage());
 		}
+	}
+	
+	public Motorista buscarPorId(int IdMotorista) {
+	    try {
+	        return motoristaDAO.buscarPorId(IdMotorista);
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao buscar motorista por ID: " + e.getMessage());
+	        return null;
+	    }
 	}
 }

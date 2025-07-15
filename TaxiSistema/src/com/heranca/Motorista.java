@@ -31,7 +31,7 @@ public class Motorista extends Pessoa {
 				+ getEndereco() + ", Telefone ='" + getTelefone() + '\''  + '\'' + ", CNH =" + cnh;
 
 	}
-	
+
 	public void exibirDados() {
 		System.out.println("Motorista:");
         System.out.println("Nome: " + getNome());

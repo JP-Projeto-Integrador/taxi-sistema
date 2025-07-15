@@ -23,7 +23,7 @@ public class Chamado {
     private Motorista motorista;
     private Veiculo veiculo;
 
-   
+
     public Chamado(String origem, String destino, TipoChamado tipoChamado, double kmInicial, double kmFinal,
                    Timestamp horaInicial, Timestamp horaFinal, double valorTotal, Cliente cliente, Motorista motorista, Veiculo veiculo) {
         this.origem = origem;
@@ -39,7 +39,7 @@ public class Chamado {
         this.veiculo = veiculo;
     }
 
-  
+
     public void exibirDados() {
     	System.out.println("Chamado:");
     	System.out.println("ID:" + getChamadoId());
@@ -180,7 +180,7 @@ public class Chamado {
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
-    
-   
-    
+
+
+
 }

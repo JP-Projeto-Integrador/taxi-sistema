@@ -1,12 +1,12 @@
 package com.heranca;
- 
+
 import java.util.Scanner;
- 
+
 import com.view.ChamadoView;
 import com.view.ClienteView;
 import com.view.MotoristaView;
 import com.view.VeiculoView;
- 
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -14,9 +14,9 @@ public class Main {
         MotoristaView motoristaView = new MotoristaView();
         VeiculoView veiculoView = new VeiculoView();
         ChamadoView chamadoView = new ChamadoView();
- 
+
         int opcao;
- 
+
         do {
             System.out.println("\n===== MENU PRINCIPAL =====");
             System.out.println("1 - Cliente");
@@ -27,7 +27,7 @@ public class Main {
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
- 
+
             switch (opcao) {
                 case 1:
                     menuCliente(clienteView, scanner);
@@ -48,21 +48,23 @@ public class Main {
                     System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
- 
+
         scanner.close();
     }
- 
+
     private static void menuCliente(ClienteView view, Scanner scanner) {
         int opcao;
         do {
             System.out.println("\n--- Menu Cliente ---");
             System.out.println("1 - Cadastrar cliente");
             System.out.println("2 - Listar clientes");
+            System.out.println("3 - Atualizar cliente");
+            System.out.println("4 - Excluir clientes");
             System.out.println("0 - Voltar");
             System.out.print("Opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
- 
+
             switch (opcao) {
                 case 1:
                     view.cadastrarCliente();
@@ -70,6 +72,12 @@ public class Main {
                 case 2:
                     view.listarClientes();
                     break;
+                case 3:    
+                	view.atualizarCliente();
+                	break;
+                case 4:
+                	view.excluirCliente();
+                	break;
                 case 0:
                     break;
                 default:
@@ -77,25 +85,33 @@ public class Main {
             }
         } while (opcao != 0);
     }
- 
-    private static void menuMotorista(MotoristaView view, Scanner scanner) {
+
+    private static void menuMotorista(MotoristaView view, Scanner sc) {
         int opcao;
         do {
             System.out.println("\n--- Menu Motorista ---");
             System.out.println("1 - Cadastrar motorista");
             System.out.println("2 - Listar motoristas");
+            System.out.println("3 - Atualizar motoristas");
+            System.out.println("4 - Excluir motoristas");
             System.out.println("0 - Voltar");
             System.out.print("Opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
- 
+            opcao = sc.nextInt();
+            sc.nextLine();
+
             switch (opcao) {
                 case 1:
-                    view.cadastrarMotorista();
+                    view.cadastrarMotorista(sc);
                     break;
                 case 2:
-                    view.listarMotoristas();
+                    view.listarMotoristas(sc);
                     break;
+                case 3:
+                	view.atualizarMotorista(sc);
+                	break;
+                case 4:
+                	view.excluirMotorista(sc);
+                	break;
                 case 0:
                     break;
                 default:
@@ -103,18 +119,20 @@ public class Main {
             }
         } while (opcao != 0);
     }
- 
+
     private static void menuVeiculo(VeiculoView view, Scanner scanner) {
         int opcao;
         do {
             System.out.println("\n--- Menu Veículo ---");
             System.out.println("1 - Cadastrar veículo");
-            System.out.println("2 - Listar veículos");
+            System.out.println("2 - Listar veículo");
+            System.out.println("3 - Atualizar veículo");
+            System.out.println("4 - Excluir veículo");
             System.out.println("0 - Voltar");
             System.out.print("Opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
- 
+
             switch (opcao) {
                 case 1:
                     view.cadastrarVeiculo();
@@ -122,6 +140,12 @@ public class Main {
                 case 2:
                     view.listarVeiculos();
                     break;
+                case 3:
+                	view.atualizarVeiculo();
+                	break;
+                case 4:
+                	view.excluirVeiculo();
+                	break;
                 case 0:
                     break;
                 default:
@@ -129,7 +153,7 @@ public class Main {
             }
         } while (opcao != 0);
     }
- 
+
     private static void menuChamado(ChamadoView view, Scanner scanner) {
         int opcao;
         do {
@@ -141,7 +165,7 @@ public class Main {
             System.out.print("Opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
- 
+
             switch (opcao) {
                 case 1:
                     view.cadastrarChamado();

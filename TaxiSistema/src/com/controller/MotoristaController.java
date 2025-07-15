@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.DAO.MotoristaDAO;
@@ -9,6 +10,20 @@ import com.heranca.Motorista;
 public class MotoristaController {
 	private MotoristaDAO motoristaDAO = new MotoristaDAO();
 	
+	
+
+	public List<Motorista> obterMotoristas() {
+	    try {
+	        return motoristaDAO.selecionarTodos();
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao obter motoristas: " + e.getMessage());
+	        return new ArrayList<Motorista>();
+	    }
+	}
+
+	
+
+
 	public void salvarMotorista (String nome, String endereco, String telefone, String cnh) {
 		try {
 			Motorista motorista = new Motorista (nome, endereco, telefone, cnh);
@@ -18,7 +33,7 @@ public class MotoristaController {
 			System.out.println("Erro ao cadastrar motorista: " + e.getMessage());
 		}
 	}
-	
+
 	public void listarMotoristas() {
 		try {
 			List<Motorista> motoristas = motoristaDAO.selecionarTodos();
@@ -31,7 +46,7 @@ public class MotoristaController {
 			System.out.print("Erro ao buscar motoristas: " + e.getMessage());
 		}
 	}
-	
+
 	public void atualizarMotorista (String nome, String endereco, String telefone, String cnh) {
 		try {
 			Motorista motorista = new Motorista(nome, endereco, telefone, cnh);
@@ -41,11 +56,10 @@ public class MotoristaController {
 			System.out.println("Erro ao atualizar motorista: " +e.getMessage());
 		}
 	}
-	
+
 	public void excluirMotorista(String cnh) {
 		try {
-			Motorista motorista = new Motorista("", "", "", cnh); //passa apenas o dado da cnh para excluir o motorista
-			motoristaDAO.excluir(motorista);
+			motoristaDAO.excluir(cnh);
 			System.out.println ("Motorista excluído com sucesso!");
 		} catch (SQLException e) {
 			System.out.println("Erro ao excluir motorista: " +e.getMessage());

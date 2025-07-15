@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.DAO.ClienteDAO;
@@ -9,8 +10,8 @@ import com.heranca.Cliente;
 
 public class ClienteController {
 	private ClienteDAO clienteDAO = new ClienteDAO();
-	
-	public void salvarCliente(String nome, String telefone, String endereco, String cpf, String rg) {
+
+	public void salvarCliente(String nome, String endereco, String telefone, String cpf, String rg) {
 		try {
 			Cliente cliente = new Cliente(nome, endereco, telefone, cpf, rg);
 			clienteDAO.inserir(cliente);
@@ -33,7 +34,16 @@ public class ClienteController {
 		}
 	}
 	
-	public void atualizarCliente(String nome, String telefone, String endereco, String cpf, String rg) {
+	public List<Cliente> obterClientes() {
+	    try {
+	        return clienteDAO.selecionarTodos();
+	    } catch (Exception e) {
+	        System.out.println("Erro ao buscar clientes: " + e.getMessage());
+	        return new ArrayList<Cliente>(); // ou null, se preferir
+	    }
+	}
+
+	public void atualizarCliente(String nome, String endereco, String telefone, String cpf, String rg) {
 	    try {
 	        Cliente cliente = new Cliente(nome, endereco, telefone, cpf, rg);
 	        cliente.setCpf(cpf);
@@ -44,12 +54,10 @@ public class ClienteController {
 	        System.out.println("Erro ao atualizar cliente: " + e.getMessage());
 	    }
 	}
-	
+
 	public void excluirCliente(String cpf) {
 	    try {
-	        Cliente cliente = new Cliente("", "", "", cpf, ""); // cria o objeto cliente
-	        cliente.setCpf(cpf);             // define apenas o CPF
-	        clienteDAO.excluir(cliente);     // passa o objeto para o DAO
+	        clienteDAO.excluir(cpf);     
 	        System.out.println("Cliente deletado com sucesso!");
 	    } catch (SQLException e) {
 	        System.out.println("Erro ao deletar cliente: " + e.getMessage());

@@ -13,14 +13,18 @@ import com.heranca.Veiculo;
 
 public class ChamadoController {
 	private ChamadoDAO chamadoDAO = new ChamadoDAO();
+	//private Cliente cliente;
+	//private Motorista motorista;
+	//private Veiculo veiculo;
 
-	public void salvarChamado(String origem, String destino, TipoChamado tipoChamado, double kmInicial, double kmFinal,
+	public void salvarChamado(String origem, String destino, TipoChamado tipoChamado, double kmInicial, double kmFinal, Timestamp horaInicial, Timestamp horaFinal,
 			double valorTotal, Cliente cliente, Motorista motorista, Veiculo veiculo) {
 		try {
-			Timestamp horaInicial = new Timestamp(System.currentTimeMillis());
-			Timestamp horaFinal = null;
+			horaInicial = new Timestamp(System.currentTimeMillis());
+			horaFinal = null;
+			valorTotal = 0;
 
-			Chamado chamado = new Chamado(origem, destino, tipoChamado, kmInicial, kmFinal, null, null, valorTotal,
+			Chamado chamado = new Chamado(origem, destino, tipoChamado, kmInicial, kmFinal, horaInicial, horaFinal, valorTotal,
 					cliente, motorista, veiculo);
 
 			chamadoDAO.inserir(chamado);
@@ -30,7 +34,7 @@ public class ChamadoController {
 
 		}
 	}
-   
+
 	public void listarChamado() {
 		try {
 			List<Chamado> chamados = chamadoDAO.selecionarTodos();
@@ -43,8 +47,8 @@ public class ChamadoController {
 			System.out.println("Erro ao buscar chamados: " + e.getMessage());
 		}
 	}
-	
-	
+
+
 	public void encerrarChamado(int chamadoId) {
 	    try {
 	        Chamado chamado = new Chamado(null, null, null, chamadoId, chamadoId, null, null, chamadoId, null, null, null); // cria o objeto chamado

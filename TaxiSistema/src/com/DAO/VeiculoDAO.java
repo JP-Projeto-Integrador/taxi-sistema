@@ -13,7 +13,7 @@ import com.heranca.Veiculo;
 public class VeiculoDAO {
 	public void inserir(Veiculo veiculo) throws SQLException {
 		String sql = "INSERT INTO veiculo (placa, modelo, ano, cor, marca) VALUES " + "(?,?,?,?,?)";
-		
+
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, veiculo.getPlaca());
@@ -24,7 +24,7 @@ public class VeiculoDAO {
 			stmt.executeUpdate();
 		}
 	}
-	
+
 	public List<Veiculo> selecionarTodos() throws SQLException {
 		List<Veiculo> veiculos = new ArrayList<>();
 		String sql = "SELECT * FROM veiculo";
@@ -43,10 +43,10 @@ public class VeiculoDAO {
 				}
 		return veiculos;
 	}
-	
+
 	public void atualizar(Veiculo veiculo) throws SQLException {
 		String sql = "UPDATE veiculo SET placa = ?, modelo = ?, ano = ?, cor = ?, marca = ? WHERE placa = ?";
-		
+
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, veiculo.getPlaca());
@@ -54,16 +54,17 @@ public class VeiculoDAO {
 			stmt.setInt(3, veiculo.getAno());
 			stmt.setString(4, veiculo.getCor());
 			stmt.setString(5, veiculo.getMarca());
+			stmt.setString(6, veiculo.getPlaca());
 			stmt.executeUpdate();
 		}
 	}
-	
-	public void excluir(Veiculo veiculo) throws SQLException {
+
+	public void excluir(String placa) throws SQLException {
 		String sql = "DELETE FROM veiculo WHERE placa = ?";
-		
+
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, veiculo.getPlaca());
+			stmt.setString(1, placa);
 			stmt.executeUpdate();
 		}
 	}

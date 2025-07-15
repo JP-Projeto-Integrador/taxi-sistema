@@ -5,31 +5,31 @@ import java.util.Scanner;
 import com.controller.VeiculoController;
 
 public class VeiculoView {
-	
+
 	private VeiculoController controller = new VeiculoController();
 	Scanner sc = new Scanner(System.in);
-	
+
 	public void cadastrarVeiculo() {
 
 		System.out.println("Placa: ");
 		String placa = sc.nextLine();
-		
+
 		System.out.println("Modelo: ");
 		String modelo = sc.nextLine();
-		
+
 		System.out.println("Ano: ");
 		int ano = sc.nextInt();
 		sc.nextLine();
-		
+
 		System.out.println("Cor: ");
 		String cor = sc.nextLine();
-		
+
 		System.out.println("Marca: ");
 		String marca = sc.nextLine();
-		
+
 		controller.salvarVeiculo(placa, modelo, ano, cor, marca);
 	}
-	
+
 	public void listarVeiculos() {
 		try {
 			controller.listarVeiculos();;
@@ -38,7 +38,7 @@ public class VeiculoView {
 			System.out.println("Erro ao listar veículos: " + e.getMessage());
 		}
 	}
-	
+
 	public void atualizarVeiculo() {
         System.out.println("\n--- Atualização de Veículo ---");
 

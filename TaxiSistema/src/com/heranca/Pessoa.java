@@ -5,7 +5,7 @@ public class Pessoa {
 	private String endereco;
 	private String telefone;
 
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -31,7 +31,7 @@ public class Pessoa {
 	}
 
 	public Pessoa(String nome, String endereco, String telefone) {
-		
+
 		if (!Validacao.validarTelefone(telefone)) {
 
 			throw new IllegalArgumentException("Telefone inválido " + telefone);
@@ -39,14 +39,14 @@ public class Pessoa {
 		}
 
 		this.nome = nome;
-		
+
 		this.endereco = endereco;
 
 		this.telefone = telefone;
 
 
 	}
-	
-	
-	
+
+
+
 }

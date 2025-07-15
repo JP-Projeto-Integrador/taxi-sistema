@@ -38,7 +38,7 @@ public class Validacao {
 		return cpf.charAt(9) - '0' == primeiroDigito && cpf.charAt(10) - '0' == segundoDigito;
 
 	}
-	
+
 	public static boolean validarRG(String rg) {
         if (rg == null) return false;
 
@@ -50,10 +50,10 @@ public class Validacao {
 
         // Verifica se todos os dígitos são iguais (caso inválido)
         if (rg.matches("(\\d)\\1{8}")) return false;
-        
+
         return true;
         }
-	
+
 	public static boolean validarCNH(String cnh) {
         if (cnh == null) return false;
 
@@ -67,10 +67,10 @@ public class Validacao {
         if (cnh.matches("(\\d)\\1{8}")) return false;
 
         // Retorna true pois o formato está correto
- 
+
         return true;
     }
-	
+
 	public static boolean validarTelefone (String telefone) {
 
 		if (telefone == null) return false;
@@ -80,7 +80,7 @@ public class Validacao {
 		return telefone.matches("\\d{10,11}");
 
 	}
-	
+
 	public static boolean validarPlaca(String placa) {
         if (placa == null) return false;
 
@@ -91,7 +91,7 @@ public class Validacao {
         if (placa.length() != 7) return false;
 
         // Retorna true pois o formato está correto
- 
+
         return true;
     }
 

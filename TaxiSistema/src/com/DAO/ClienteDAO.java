@@ -41,24 +41,24 @@ public class ClienteDAO {
 	}
 
 	public void atualizar(Cliente cliente) throws SQLException {
-		String sql = "UPDATE cliente SET nome = ?, endereco = ?, telefone = ?, rg = ?, WHERE cpf = ?";
+		String sql = "UPDATE cliente SET nome = ?, endereco = ?, telefone = ?, rg = ? WHERE cpf = ?";
 
 		try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, cliente.getNome());
-			stmt.setString(2, cliente.getTelefone());
-			stmt.setString(3, cliente.getEndereco());
+			stmt.setString(2, cliente.getEndereco());
+			stmt.setString(3, cliente.getTelefone());
 			stmt.setString(4, cliente.getRg());
 			stmt.setString(5, cliente.getCpf());
 			stmt.executeUpdate();
 		}
 	}
-	
-	public void excluir(Cliente cliente) throws SQLException {
+
+	public void excluir(String cpf) throws SQLException {
 		String sql = "DELETE FROM cliente WHERE cpf = ?";
-		
+
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, cliente.getCpf());
+			stmt.setString(1, cpf);
 			stmt.executeUpdate();
 		}
 	}

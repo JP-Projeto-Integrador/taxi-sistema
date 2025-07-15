@@ -12,20 +12,20 @@ public class ClienteView {
     public void cadastrarCliente() {
         System.out.print("Nome: ");
         String nome = sc.nextLine();
-        
+
         System.out.print("Endereço: ");
         String endereco = sc.nextLine();
 
         System.out.print("Telefone: ");
         String telefone = sc.nextLine();
-        
+
         System.out.print("RG: ");
         String rg = sc.nextLine();
-        
+
         System.out.print("CPF: ");
         String cpf = sc.nextLine();
 
-        controller.salvarCliente(nome, endereco, telefone, rg, cpf);
+        controller.salvarCliente(nome, endereco, telefone, cpf, rg);
     }
 
     public void listarClientes() {
@@ -35,7 +35,7 @@ public class ClienteView {
         	System.out.println("Erro ao listar clientes: " + e.getMessage());
             } 
     }
-    
+
     public void atualizarCliente() {
         System.out.println("Digite os dados do cliente para atualizar:");
         System.out.print("CPF do cliente a atualizar: ");
@@ -55,7 +55,7 @@ public class ClienteView {
 
         controller.atualizarCliente(nome, endereco, telefone, cpf, rg);
     }
-    
+
     public void excluirCliente() {
         System.out.print("Digite o CPF do cliente a excluir: ");
         String cpf = sc.nextLine();

@@ -17,8 +17,8 @@ public class MotoristaDAO {
 		try (Connection conn = ConnectionFactory.getConnection(); 
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, motorista.getNome());
-			stmt.setString(3, motorista.getEndereco());
-			stmt.setString(2, motorista.getTelefone());
+			stmt.setString(2, motorista.getEndereco());
+			stmt.setString(3, motorista.getTelefone());
 			stmt.setString(4, motorista.getCnh());
 			stmt.executeUpdate();
 		}
@@ -51,13 +51,13 @@ public class MotoristaDAO {
 			stmt.executeUpdate();
 		}
 	}
-	
-	public void excluir(Motorista motorista) throws SQLException {
+
+	public void excluir(String cnh) throws SQLException {
 		String sql = "DELETE FROM motorista WHERE cnh = ?";
-		
+
 		try (Connection conn = ConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, motorista.getCnh());
+			stmt.setString(1, cnh);
 			stmt.executeUpdate();
 		}
 	}

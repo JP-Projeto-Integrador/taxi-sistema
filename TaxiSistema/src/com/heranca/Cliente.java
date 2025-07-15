@@ -3,15 +3,15 @@ package com.heranca;
 public class Cliente extends Pessoa {
 	private String rg;
 	private String cpf;
-	
-	public Cliente (String nome, String endereco, String telefone,  String rg, String cpf) {
+
+	public Cliente (String nome, String endereco, String telefone,  String cpf, String rg) {
 		super(nome, endereco, telefone);
-		
+
 		if (!Validacao.validarRG(rg)) {
 
 			throw new IllegalArgumentException("RG inválido " + rg);
 		}
-		
+
 		if (!Validacao.validarCPF(cpf)) {
 
 			throw new IllegalArgumentException("CPF inválido " + cpf);
@@ -50,18 +50,18 @@ public class Cliente extends Pessoa {
                 "Nome ='" + getNome() + '\'' +
                 ", Endereco ='" + getEndereco() + '\'' +
                 ", Telefone ='" + getTelefone() + '\'' +
-                ", RG ='" + rg + '\'' +
-                ", CPF ='" + cpf;
+                ", CPF ='" + cpf + '\'' +
+                ", RG ='" + rg;
     }
-    
+
     public void exibirDados() {
     	System.out.println("Cliente:");
         System.out.println("Nome: " + getNome());
         System.out.println("Endereço: " + getEndereco());
         System.out.println("Telefone: " + getTelefone());
-        System.out.println("RG: " + rg);
         System.out.println("CPF: " + cpf);
-    }
-	
-}
+        System.out.println("RG: " + rg);
 
+    }
+
+}

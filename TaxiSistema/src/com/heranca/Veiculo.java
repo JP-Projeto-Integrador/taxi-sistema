@@ -67,7 +67,7 @@ public class Veiculo {
 		return "Veiculo [placa =" + placa + ", modelo =" + modelo + ", ano =" + ano + ", cor =" + cor + ", marca ="
 				+ marca + "]";
 	}
-	
+
     public void exibirDados() {
     	System.out.println("Veículo:");
         System.out.println("Placa: " + getPlaca());

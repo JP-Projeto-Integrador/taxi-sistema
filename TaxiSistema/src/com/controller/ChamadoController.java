@@ -14,23 +14,30 @@ import com.heranca.Veiculo;
 public class ChamadoController {
 	private ChamadoDAO chamadoDAO = new ChamadoDAO();
 
-	public void salvarChamado(String origem, String destino, TipoChamado tipoChamado, double kmInicial, double kmFinal, Timestamp horaInicial, Timestamp horaFinal,
-			double valorTotal, Cliente cliente, Motorista motorista, Veiculo veiculo) {
-		try {
-			horaInicial = new Timestamp(System.currentTimeMillis());
-			horaFinal = null;
-			valorTotal = 0;
+	public void salvarChamado(String origem, String destino, TipoChamado tipoChamado, 
+		    double kmInicial, double kmFinal, Timestamp horaInicial, Timestamp horaFinal,
+		    double valorTotal, Cliente cliente, Motorista motorista, Veiculo veiculo) {
 
-			Chamado chamado = new Chamado(origem, destino, tipoChamado, kmInicial, kmFinal, horaInicial, horaFinal, valorTotal,
-					cliente, motorista, veiculo);
+		    try {
+		        horaInicial = new Timestamp(System.currentTimeMillis());
+		        horaFinal = null;
 
-			chamadoDAO.inserir(chamado);
-			System.out.println("Chamado inserido com sucesso");
-		} catch (SQLException e) {
-			System.out.println("Erro ao salvar Chamado: " + e.getMessage());
+		        // cria o chamado com valor inicial zero
+		        Chamado chamado = new Chamado(origem, destino, tipoChamado,
+		            kmInicial, kmFinal, horaInicial, horaFinal, 0,
+		            cliente, motorista, veiculo
+		        );
 
+		        // usa o método da própria classe para calcular
+		        chamado.atualizarValorTotal();
+
+		        chamadoDAO.inserir(chamado);
+		        System.out.println("Chamado inserido com sucesso. Valor total: " + chamado.getValorTotal());
+
+		    } catch (SQLException e) {
+		        System.out.println("Erro ao salvar Chamado: " + e.getMessage());
+		    }
 		}
-	}
 
 	public void listarChamado() {
 		try {
@@ -52,6 +59,22 @@ public class ChamadoController {
 	        System.out.println("Chamado encerrado com sucesso!");
 	    } catch (SQLException e) {
 	        System.out.println("Erro ao encerrar chamado: " + e.getMessage());
+	    }
+	}
+	
+	public void atualizarValorTotal(Chamado chamado) {
+	    try {
+	        // Recalcula o valor total usando o método que você cria sem parâmetro
+	        chamado.atualizarValorTotal(); 
+	        
+	        // Atualiza somente o valor total no banco usando o DAO
+	        chamadoDAO.atualizarValorTotal(chamado.getIdChamado(), chamado.getValorTotal());
+	        
+	        System.out.println("Chamado atualizado com sucesso! Valor total: " + chamado.getValorTotal());
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao atualizar chamado: " + e.getMessage());
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("Erro no cálculo do valor: " + e.getMessage());
 	    }
 	}
 }

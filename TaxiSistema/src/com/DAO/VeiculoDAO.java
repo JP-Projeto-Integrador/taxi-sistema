@@ -28,7 +28,7 @@ public class VeiculoDAO {
 
 	public List<Veiculo> selecionarTodos(int IdMotorista) throws SQLException {
 	    List<Veiculo> veiculos = new ArrayList<>();
-	    String sql = "SELECT IDVEICULO, PLACA, MODELO, ANO, COR, MARCA FROM VEICULO WHERE IDMOTORISTA = ?";
+	    String sql = "SELECT IDVEICULO, PLACA, MODELO, ANO, COR, MARCA, IDMOTORISTA FROM VEICULO WHERE IDMOTORISTA = ?";
 
 	    try (Connection conn = ConnectionFactory.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {

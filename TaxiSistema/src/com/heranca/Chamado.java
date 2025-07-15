@@ -72,10 +72,32 @@ public class Chamado {
 		System.out.println("Marca: " + veiculo.getMarca());
 	}
 	
-	public void calcularValorTotal(double distanciaKm) {
-	    this.valorTotal = distanciaKm * 1.0; // 1 real por km
-	}
+	public void atualizarValorTotal() {
+	    double distancia = this.kmFinal - this.kmInicial;
 
+	    if (distancia < 0) {
+	        throw new IllegalArgumentException("KM final não pode ser menor que o inicial.");
+	    }
+
+	    double precoPorKm;
+
+	    switch (this.tipoChamado) {
+	        case BASIC:
+	            precoPorKm = 1.0;
+	            break;
+	        case COMFORT:
+	            precoPorKm = 2.0;
+	            break;
+	        case PRIORITY:
+	            precoPorKm = 3.0;
+	            break;
+	        default:
+	            precoPorKm = 1.0; // valor padrão
+	            break;
+	    }
+
+	    this.valorTotal = distancia * precoPorKm;
+	}
 	public int getIdChamado() {
 		return IdChamado;
 	}

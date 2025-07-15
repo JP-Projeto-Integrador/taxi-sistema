@@ -46,7 +46,8 @@ public class ChamadoDAO {
 				+ "       m.IDMOTORISTA AS motorista_id, m.NOME AS motorista_nome, m.ENDERECO AS motorista_endereco, m.TELEFONE AS motorista_telefone,\r\n"
 				+ "       m.CNH AS motorista_cnh,\r\n"
 				+ "       v.IDVEICULO AS veiculo_id, v.PLACA AS veiculo_placa, v.MODELO AS veiculo_modelo, v.ANO AS veiculo_ano,\r\n"
-				+ "       v.COR AS veiculo_cor, v.MARCA AS veiculo_marca\r\n" + "FROM CHAMADO ch\r\n"
+				+ "       v.COR AS veiculo_cor, v.MARCA AS veiculo_marca, v.IDMOTORISTA AS veiculo_idmotorista\r\n"
+				+ "FROM CHAMADO ch\r\n"
 				+ "JOIN CLIENTE c ON ch.IDCLIENTE = c.IDCLIENTE\r\n"
 				+ "JOIN MOTORISTA m ON ch.IDMOTORISTA = m.IDMOTORISTA\r\n"
 				+ "JOIN VEICULO v ON ch.IDVEICULO = v.IDVEICULO";
@@ -95,6 +96,21 @@ public class ChamadoDAO {
 			stmt.executeUpdate();
 
 		}
+	}
+	
+	public void atualizarValorTotal(int idChamado, double valorTotal) throws SQLException {
+	    String sql = "UPDATE CHAMADO SET VALOR_TOTAL = ? WHERE IDCHAMADO = ?";
+
+	    try (Connection conn = ConnectionFactory.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setDouble(1, valorTotal);
+	        stmt.setInt(2, idChamado);
+	        int linhasAfetadas = stmt.executeUpdate();
+
+	        if (linhasAfetadas == 0) {
+	            throw new SQLException("Nenhum chamado encontrado com esse ID.");
+	        }
+	    }
 	}
 
 }

@@ -63,4 +63,13 @@ public class ClienteController {
 	        System.out.println("Erro ao deletar cliente: " + e.getMessage());
 	    }
 	}
+	
+	public Cliente buscarPorId(int IdCliente) {
+	    try {
+	        return clienteDAO.buscarPorId(IdCliente);
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao buscar cliente por ID: " + e.getMessage());
+	        return null;
+	    }
+	}
 }

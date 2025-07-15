@@ -1,7 +1,9 @@
 package com.heranca;
 
+import java.lang.ModuleLayer.Controller;
 import java.util.Scanner;
 
+import com.controller.MotoristaController;
 import com.view.ChamadoView;
 import com.view.ClienteView;
 import com.view.MotoristaView;
@@ -14,6 +16,7 @@ public class Main {
         MotoristaView motoristaView = new MotoristaView();
         VeiculoView veiculoView = new VeiculoView();
         ChamadoView chamadoView = new ChamadoView();
+        
 
         int opcao;
 
@@ -104,7 +107,7 @@ public class Main {
                     view.cadastrarMotorista(sc);
                     break;
                 case 2:
-                    view.listarMotoristas(sc);
+                    view.listarMotoristas();
                     break;
                 case 3:
                 	view.atualizarMotorista(sc);
@@ -135,10 +138,15 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    view.cadastrarVeiculo();
+                	MotoristaController controller = new MotoristaController();
+                	controller.listarMotoristas();
+                	System.out.print("Informe o ID do motorista para vincular ao veículo: ");
+                    int IdMotorista = scanner.nextInt();
+                    scanner.nextLine();
+                    view.cadastrarVeiculo(IdMotorista);
                     break;
                 case 2:
-                    view.listarVeiculos();
+                	view.listarTodosVeiculos();
                     break;
                 case 3:
                 	view.atualizarVeiculo();
